@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SeConRob – Self-Configuring Robotic Workflows · DGZfP 2026</title>
+  <title>Robotergestützte Ultraschallprüfung von geometrisch komplexen Schmiedebauteilen der Luftfahrtindustrie · DGZfP 2026</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -15,11 +15,14 @@
     <div class="header-inner">
       <p class="conference-label">DGZfP Annual Conference · Aachen · 11–13 May 2026</p>
       <h1 class="paper-title">
-        Robotic Ultrasonic Scanning of Complex Metallic Parts<br />
-        within the SeConRob Project
+        Robotergestützte Ultraschallprüfung von geometrisch<br />
+        komplexen Schmiedebauteilen der Luftfahrtindustrie
       </h1>
       <p class="authors">
-        ACS Solutions GmbH
+        Alexey Bevetskiy, Andrey Bulavinov, Roman Pinchuk<br />
+        <em>ACS-Solutions GmbH, Saarbrücken</em><br /><br />
+        Michael Okulla, Jens Kiehn<br />
+        <em>Otto Fuchs KG</em>
       </p>
       <p class="affiliations">
         SeConRob – EU Horizon Europe · Grant Agreement No. 101118511
@@ -47,10 +50,10 @@
       <p>
         Within the <strong>SeConRob</strong> project (<em>Self-Configuring
         Multi-Step Robotic Workflows</em>), ACS Solutions GmbH has concentrated
-        its recent work on the <strong>robotic ultrasonic scanning of a real
-        cruciform forged part</strong> supplied by project partner
-        <strong>OTTO FUCHS KG</strong>. This part represents a genuine
-        aerospace-grade forging with complex geometry, non-parallel surfaces,
+        its recent work on the <strong>robotic ultrasonic inspection of
+        geometrically complex aerospace forgings</strong> supplied by project
+        partner <strong>OTTO FUCHS KG</strong>. These parts represent genuine
+        aerospace-grade forgings with complex geometry, non-parallel surfaces,
         and compound radii — exactly the class of component where automated
         volumetric inspection has historically been limited by the difficulty
         of adapting scan trajectories to free-form surfaces.
@@ -65,10 +68,10 @@
 
       <figure>
         <img src="images/cruciform_overview.png"
-             alt="Cruciform forged part from OTTO FUCHS"
+             alt="Complex aerospace forged part from OTTO FUCHS"
              onerror="this.closest('figure').classList.add('img-missing')" />
         <figcaption>
-          Fig. 1 – The cruciform verification test piece from OTTO FUCHS,
+          Fig. 1 – Verification test piece from OTTO FUCHS,
           used for sensitivity calibration and as the primary inspection
           specimen in the SeConRob OTTO FUCHS use case.
         </figcaption>
@@ -87,7 +90,7 @@
         system relative to the actual surface geometry of the part (including
         non-parallel faces, varying radii and freeform regions), and it is
         machined from a representative base taken from a real original forged
-        cruciform.
+        aerospace component.
       </p>
       <p>
         Using the verification test piece, we calibrate the system response
@@ -105,7 +108,7 @@
         <figcaption>
           Fig. 2 – Verification test piece with defined artificial
           reflectors, machined from a representative base of the
-          original cruciform forging.
+          original aerospace forging.
         </figcaption>
       </figure>
     </section>
@@ -132,7 +135,7 @@
              onerror="this.closest('figure').classList.add('img-missing')" />
         <figcaption>
           Fig. 3 – Scan area of interest defined by selecting two border
-          curves on the 3-D CAD model of the cruciform part.
+          curves on the 3-D CAD model of the aerospace forged part.
         </figcaption>
       </figure>
 
@@ -268,10 +271,6 @@
 
       <div class="metrics">
         <div class="metric-card">
-          <span class="metric-value">~30</span>
-          <span class="metric-label">Datasets acquired in this study</span>
-        </div>
-        <div class="metric-card">
           <span class="metric-value">100&thinsp;%</span>
           <span class="metric-label">Artificial reflectors clearly resolved in all scans</span>
         </div>
@@ -282,21 +281,20 @@
       </div>
 
       <p>
-        Approximately <strong>30 datasets</strong> have been acquired on the
-        cruciform verification test piece. All scans show
-        <strong>good resolution</strong> of the artificial defects and
-        <strong>stable repeatability</strong> across repeated measurements.
-        The detected reflector positions match the locations specified in the
-        technical drawings with high accuracy, validating both the calibration
-        procedure and the reconstruction algorithm.
+        A series of datasets has been acquired on the verification test piece.
+        All scans show <strong>good resolution</strong> of the artificial
+        defects and <strong>stable repeatability</strong> across repeated
+        measurements. The detected reflector positions match the locations
+        specified in the technical drawings with high accuracy, validating
+        both the calibration procedure and the reconstruction algorithm.
       </p>
 
       <div class="figure-row">
         <figure>
           <img src="images/cscan_result.png"
-               alt="C-scan of cruciform part showing artificial reflectors"
+               alt="C-scan of complex aerospace forged part showing artificial reflectors"
                onerror="this.closest('figure').classList.add('img-missing')" />
-          <figcaption>Fig. 8 – C-scan of the cruciform part; artificial reflectors are clearly resolved.</figcaption>
+          <figcaption>Fig. 8 – C-scan of the forged part; artificial reflectors are clearly resolved.</figcaption>
         </figure>
         <figure>
           <img src="images/volume_reconstruction.png"
@@ -305,96 +303,6 @@
           <figcaption>Fig. 9 – 3-D volume reconstruction overlaid on the CAD model; reflector positions match technical drawing data.</figcaption>
         </figure>
       </div>
-    </section>
-
-    <!-- ─── CONSORTIUM ────────────────────────────── -->
-    <section id="consortium">
-      <h2>Consortium</h2>
-      <p>
-        SeConRob brings together seven complementary organisations from five
-        European countries, covering the full chain from fundamental research
-        to industrial implementation.
-      </p>
-
-      <div class="partner-grid">
-        <div class="partner-card">
-          <strong>PROFACTOR GmbH</strong>
-          <span class="partner-country">Austria</span>
-          <p>Project coordinator. Robot process planning and automation
-             for non-ultrasonic inspection and rework steps.</p>
-        </div>
-        <div class="partner-card">
-          <strong>Fraunhofer IZFP</strong>
-          <span class="partner-country">Germany</span>
-          <p>AI-driven data analysis, magneto-optical inspection, defect
-             characterisation and automated process parameter generation.</p>
-        </div>
-        <div class="partner-card">
-          <strong>ACS Solutions GmbH</strong>
-          <span class="partner-country">Germany</span>
-          <p>Robot-based phased-array ultrasonic testing systems for
-             volumetric inspection of complex metallic parts.</p>
-        </div>
-        <div class="partner-card">
-          <strong>OTTO FUCHS KG</strong>
-          <span class="partner-country">Germany</span>
-          <p>Aerospace use case: robotic inspection and adaptive finishing
-             of high-strength aluminium and titanium forgings.</p>
-        </div>
-        <div class="partner-card">
-          <strong>Marposs S.p.A.</strong>
-          <span class="partner-country">Italy</span>
-          <p>Industrial inspection and precision measurement equipment;
-             integration of in-process gauging into the robotic workflow.</p>
-        </div>
-        <div class="partner-card">
-          <strong>Safe Metal</strong>
-          <span class="partner-country">France</span>
-          <p>Automotive use case: complete robotic inspect–gouge–weld–grind
-             loop for safety-critical cast and forged components.</p>
-        </div>
-        <div class="partner-card">
-          <strong>École Centrale de Lyon / ENISE</strong>
-          <span class="partner-country">France</span>
-          <p>Academic partner. Physical process models for grinding,
-             welding and polishing; reinforcement-learning framework.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── REFERENCES ────────────────────────────── -->
-    <section id="references">
-      <h2>References &amp; Links</h2>
-      <ol class="reference-list">
-        <li>
-          ACS Solutions GmbH:
-          <a href="https://acs-international.com" target="_blank" rel="noopener">
-            acs-international.com</a>
-        </li>
-        <li>
-          ACS news – SeConRob project announcement:
-          <a href="https://acs-international.com/news/seconrob-project-enables-self-configuring-robotic-production-workflow-including-robot-based-non-destructive-testing-of-complex-shape-metallic-parts/"
-             target="_blank" rel="noopener">
-            acs-international.com/news/seconrob-project…</a>
-        </li>
-        <li>
-          SeConRob project website:
-          <a href="https://www.seconrob.eu" target="_blank" rel="noopener">
-            www.seconrob.eu</a>
-        </li>
-        <li>
-          CORDIS project page – Grant Agreement No. 101118511:
-          <a href="https://cordis.europa.eu/project/id/101118511"
-             target="_blank" rel="noopener">
-            cordis.europa.eu/project/id/101118511</a>
-        </li>
-        <li>
-          DGZfP Annual Conference 2026, Aachen, 11–13 May 2026:
-          <a href="https://www.jahrestagung2026.dgzfp.de"
-             target="_blank" rel="noopener">
-            jahrestagung2026.dgzfp.de</a>
-        </li>
-      </ol>
     </section>
 
     <!-- ─── CONTACT ───────────────────────────────── -->
