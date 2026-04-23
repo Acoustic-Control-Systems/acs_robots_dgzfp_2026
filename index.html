@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SECONROB – DGZfP 2026</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       HEADER  –  edit title, authors, affiliation
+       ═══════════════════════════════════════════════ -->
+  <header>
+    <div class="header-inner">
+      <p class="conference-label">DGZfP Annual Conference · 2026</p>
+      <h1 class="paper-title">
+        SECONROB: Self-Controlled Robotic Inspection<br />
+        Using Acoustic Emission Sensing
+      </h1>
+      <p class="authors">
+        Author One<sup>1</sup>, Author Two<sup>1</sup>, Author Three<sup>2</sup>
+      </p>
+      <p class="affiliations">
+        <sup>1</sup>Acoustic Control Systems &nbsp;|&nbsp;
+        <sup>2</sup>Partner Institution
+      </p>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════
+       NAVIGATION (auto-generated from sections below)
+       ═══════════════════════════════════════════════ -->
+  <nav id="toc">
+    <ul id="toc-list"></ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════
+       MAIN CONTENT
+       Add or remove <section> blocks as needed.
+       Each section must have a unique id and a <h2>.
+       ═══════════════════════════════════════════════ -->
+  <main>
+
+    <!-- ─── ABSTRACT ──────────────────────────────── -->
+    <section id="abstract">
+      <h2>Abstract</h2>
+      <p>
+        This page presents the key results of the SECONROB project demonstrated
+        at the DGZfP 2026 annual conference. The project investigates autonomous
+        robotic inspection strategies that combine acoustic emission sensing with
+        self-learning control algorithms to detect structural defects in
+        safety-critical components.
+      </p>
+      <p>
+        The proposed system achieves reliable defect localisation under realistic
+        field conditions without manual intervention, reducing inspection cycle
+        times by up to 40 % compared to conventional approaches.
+      </p>
+    </section>
+
+    <!-- ─── MOTIVATION ────────────────────────────── -->
+    <section id="motivation">
+      <h2>Motivation &amp; Background</h2>
+      <p>
+        Non-destructive testing (NDT) of large structures such as pressure
+        vessels, pipelines and wind-turbine blades typically requires skilled
+        personnel and results in long downtime periods. Autonomous robotic
+        inspection offers a path to continuous, low-cost monitoring.
+      </p>
+      <p>
+        Acoustic emission (AE) sensing is particularly attractive because it is
+        passive, broadband, and sensitive to crack growth and impact events.
+        Coupling AE with a mobile robot creates a system that can cover large
+        surface areas without contact limitations.
+      </p>
+
+      <!-- ── Image block – replace src with your image file ── -->
+      <figure>
+        <img src="images/motivation.png"
+             alt="Robotic inspection platform on a pressure vessel"
+             onerror="this.closest('figure').classList.add('img-missing')" />
+        <figcaption>
+          Fig. 1 – Schematic of the robotic AE inspection platform.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ─── METHODS ───────────────────────────────── -->
+    <section id="methods">
+      <h2>Methods</h2>
+      <p>
+        The inspection robot carries an array of piezoelectric AE sensors mounted
+        on a compliant coupling frame. Signals are digitised at 2 MS/s and fed in
+        real time to an on-board FPGA that performs hit detection, feature
+        extraction (rise time, peak amplitude, energy) and source localisation
+        via time-difference-of-arrival (TDOA) triangulation.
+      </p>
+      <p>
+        A reinforcement-learning path planner continuously updates the robot
+        trajectory to minimise residual source-localisation uncertainty, guiding
+        the sensor array towards regions of highest acoustic activity.
+      </p>
+
+      <!-- ── Two-column image layout ── -->
+      <div class="figure-row">
+        <figure>
+          <img src="images/sensor_array.png"
+               alt="Sensor array mounting"
+               onerror="this.closest('figure').classList.add('img-missing')" />
+          <figcaption>Fig. 2 – Compliant sensor array frame.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/fpga_pipeline.png"
+               alt="FPGA signal processing pipeline"
+               onerror="this.closest('figure').classList.add('img-missing')" />
+          <figcaption>Fig. 3 – Real-time FPGA processing pipeline.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ─── RESULTS ───────────────────────────────── -->
+    <section id="results">
+      <h2>Results</h2>
+      <p>
+        Experiments were conducted on a 2 m × 1 m steel plate with artificially
+        introduced notch defects. The system was benchmarked against a stationary
+        eight-sensor array of equal aperture.
+      </p>
+
+      <!-- ── Key-metrics highlight boxes ── -->
+      <div class="metrics">
+        <div class="metric-card">
+          <span class="metric-value">± 8 mm</span>
+          <span class="metric-label">Localisation accuracy (median)</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">40 %</span>
+          <span class="metric-label">Reduction in inspection time</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">97.3 %</span>
+          <span class="metric-label">Hit detection rate</span>
+        </div>
+      </div>
+
+      <figure>
+        <img src="images/localisation_map.png"
+             alt="Acoustic emission source localisation map"
+             onerror="this.closest('figure').classList.add('img-missing')" />
+        <figcaption>
+          Fig. 4 – AE source localisation map overlaid on the test plate.
+          Red crosses mark ground-truth notch positions; circles indicate
+          estimated positions (radius = 1σ).
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ─── CONCLUSION ────────────────────────────── -->
+    <section id="conclusion">
+      <h2>Conclusion</h2>
+      <p>
+        The SECONROB system demonstrates that adaptive robotic path planning
+        combined with real-time AE processing significantly improves localisation
+        accuracy and throughput compared to fixed sensor networks. The approach
+        scales to larger structures and can be extended to multi-robot
+        deployments.
+      </p>
+      <p>
+        Future work will focus on transfer to curved surfaces (pipes and
+        vessels), integration of guided-wave excitation, and in-situ validation
+        on operational plant equipment.
+      </p>
+    </section>
+
+    <!-- ─── REFERENCES ────────────────────────────── -->
+    <section id="references">
+      <h2>References</h2>
+      <ol class="reference-list">
+        <li>
+          Author A, Author B (2024). <em>Acoustic Emission Source Localisation
+          Review</em>. NDT &amp; E International, 142, 103012.
+        </li>
+        <li>
+          Author C (2025). <em>Reinforcement Learning for Robotic NDT Path
+          Planning</em>. Proc. DGZfP 2025, Berlin.
+        </li>
+        <li>
+          Author D, Author E (2023). <em>FPGA-Based Real-Time AE Feature
+          Extraction</em>. IEEE Sensors Journal, 23(8), 8921–8930.
+        </li>
+      </ol>
+    </section>
+
+    <!-- ─── CONTACT ───────────────────────────────── -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        For questions or collaboration inquiries, please contact:<br />
+        <a href="mailto:info@example.com">info@example.com</a>
+      </p>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════ -->
+  <footer>
+    <p>
+      © 2026 Acoustic Control Systems · Presented at DGZfP Annual Conference 2026
+    </p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
