@@ -3,27 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SECONROB – DGZfP 2026</title>
+  <title>SeConRob – Self-Configuring Robotic Workflows · DGZfP 2026</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
   <!-- ═══════════════════════════════════════════════
-       HEADER  –  edit title, authors, affiliation
+       HEADER
        ═══════════════════════════════════════════════ -->
   <header>
     <div class="header-inner">
-      <p class="conference-label">DGZfP Annual Conference · 2026</p>
+      <p class="conference-label">DGZfP Annual Conference · Aachen · 11–13 May 2026</p>
       <h1 class="paper-title">
-        SECONROB: Self-Controlled Robotic Inspection<br />
-        Using Acoustic Emission Sensing
+        SeConRob: Self-Configuring Multi-Step<br />
+        Robotic Workflows for Non-Destructive Testing
       </h1>
       <p class="authors">
-        Author One<sup>1</sup>, Author Two<sup>1</sup>, Author Three<sup>2</sup>
+        PROFACTOR GmbH · Fraunhofer IZFP · ACS Solutions GmbH ·
+        OTTO FUCHS · Marposs · Safe Metal · École Centrale de Lyon
       </p>
       <p class="affiliations">
-        <sup>1</sup>Acoustic Control Systems &nbsp;|&nbsp;
-        <sup>2</sup>Partner Institution
+        EU Horizon Europe · Grant Agreement No. 101118511
       </p>
     </div>
   </header>
@@ -42,152 +42,412 @@
        ═══════════════════════════════════════════════ -->
   <main>
 
-    <!-- ─── ABSTRACT ──────────────────────────────── -->
-    <section id="abstract">
-      <h2>Abstract</h2>
+    <!-- ─── INTRODUCTION ─────────────────────────── -->
+    <section id="introduction">
+      <h2>Introduction</h2>
       <p>
-        This page presents the key results of the SECONROB project demonstrated
-        at the DGZfP 2026 annual conference. The project investigates autonomous
-        robotic inspection strategies that combine acoustic emission sensing with
-        self-learning control algorithms to detect structural defects in
-        safety-critical components.
+        In modern manufacturing of safety-critical metallic components, production
+        chains often consist of multiple dependent steps: a part is first inspected,
+        then repaired or reworked based on the findings, and finally re-inspected
+        to verify the repair. Today, these multi-step workflows are rarely fully
+        automated because each downstream action must be individually programmed
+        by an expert who interprets the inspection results and adapts the robot
+        program accordingly.
       </p>
       <p>
-        The proposed system achieves reliable defect localisation under realistic
-        field conditions without manual intervention, reducing inspection cycle
-        times by up to 40 % compared to conventional approaches.
-      </p>
-    </section>
-
-    <!-- ─── MOTIVATION ────────────────────────────── -->
-    <section id="motivation">
-      <h2>Motivation &amp; Background</h2>
-      <p>
-        Non-destructive testing (NDT) of large structures such as pressure
-        vessels, pipelines and wind-turbine blades typically requires skilled
-        personnel and results in long downtime periods. Autonomous robotic
-        inspection offers a path to continuous, low-cost monitoring.
-      </p>
-      <p>
-        Acoustic emission (AE) sensing is particularly attractive because it is
-        passive, broadband, and sensitive to crack growth and impact events.
-        Coupling AE with a mobile robot creates a system that can cover large
-        surface areas without contact limitations.
+        The <strong>SeConRob</strong> project — <em>Self-Configuring Multi-Step
+        Robotic Workflows</em> — is a European research initiative that aims to
+        close this gap. Funded by the EU Horizon Europe programme, SeConRob
+        develops methods that enable robots to <strong>automatically
+        self-configure</strong> for each step of a production chain based on
+        the outcomes of the previous step. Inspection data is no longer just a
+        pass/fail verdict: it becomes the direct input that generates the robot
+        program for the next process, whether that is grinding, welding,
+        gouging, or polishing.
       </p>
 
-      <!-- ── Image block – replace src with your image file ── -->
       <figure>
-        <img src="images/motivation.png"
-             alt="Robotic inspection platform on a pressure vessel"
+        <img src="images/seconrob_overview.png"
+             alt="SeConRob project overview – self-configuring robotic workflow"
              onerror="this.closest('figure').classList.add('img-missing')" />
         <figcaption>
-          Fig. 1 – Schematic of the robotic AE inspection platform.
+          Fig. 1 – The SeConRob concept: inspection results directly drive
+          the self-configuration of subsequent robotic process steps.
         </figcaption>
       </figure>
     </section>
 
-    <!-- ─── METHODS ───────────────────────────────── -->
-    <section id="methods">
-      <h2>Methods</h2>
+    <!-- ─── MOTIVATION ────────────────────────────── -->
+    <section id="motivation">
+      <h2>Motivation &amp; Challenge</h2>
       <p>
-        The inspection robot carries an array of piezoelectric AE sensors mounted
-        on a compliant coupling frame. Signals are digitised at 2 MS/s and fed in
-        real time to an on-board FPGA that performs hit detection, feature
-        extraction (rise time, peak amplitude, energy) and source localisation
-        via time-difference-of-arrival (TDOA) triangulation.
+        Safety-critical metallic parts in the automotive and aerospace industries —
+        such as cast engine housings, forged turbine discs, and structural
+        weldments — require rigorous non-destructive testing (NDT) followed by
+        targeted rework of any detected anomalies. Current practice demands
+        highly skilled NDT engineers who manually interpret inspection results
+        and programme each subsequent robot action, making these workflows slow,
+        expensive and difficult to scale.
       </p>
       <p>
-        A reinforcement-learning path planner continuously updates the robot
-        trajectory to minimise residual source-localisation uncertainty, guiding
-        the sensor array towards regions of highest acoustic activity.
+        The core challenge is <strong>variability</strong>: every part may carry
+        a defect at a different location, of a different size, or of a different
+        type. A robot system that can handle this variability autonomously —
+        without stopping production for manual reprogramming — would deliver
+        substantial gains in productivity, resource efficiency, and quality
+        assurance.
+      </p>
+      <p>
+        Additionally, state-of-the-art NDT systems produce far richer data than
+        a simple pass/fail flag. Phased-array ultrasonic testing (PAUT),
+        magneto-optical imaging, and eddy-current scanning provide full
+        volumetric defect maps with size, orientation, and depth information.
+        SeConRob exploits this information to configure rework robots
+        automatically and precisely.
       </p>
 
-      <!-- ── Two-column image layout ── -->
+      <figure>
+        <img src="images/challenge.png"
+             alt="Multi-step manufacturing challenge: inspection, rework, re-inspection"
+             onerror="this.closest('figure').classList.add('img-missing')" />
+        <figcaption>
+          Fig. 2 – Typical multi-step workflow: NDT inspection results must
+          inform and reconfigure subsequent robotic rework steps in real time.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ─── APPROACH ─────────────────────────────── -->
+    <section id="approach">
+      <h2>Technical Approach</h2>
+      <p>
+        SeConRob combines three technological pillars to achieve autonomous
+        self-configuration:
+      </p>
+
+      <h3>1 · Robot-Based NDT with Phased-Array Ultrasonics</h3>
+      <p>
+        ACS Solutions GmbH integrates its high-technology
+        <strong>phased-array ultrasonic testing (PAUT)</strong> systems on
+        industrial robot arms. Electronic beam steering and focusing provide
+        high-resolution volumetric defect maps of complex-shaped parts —
+        including curved surfaces and near-net-shape forgings — that
+        conventional fixed-mount probes cannot handle efficiently.
+        Magneto-optical inspection developed by Fraunhofer IZFP complements
+        PAUT for surface and near-surface crack detection in ferromagnetic
+        materials.
+      </p>
+
       <div class="figure-row">
         <figure>
-          <img src="images/sensor_array.png"
-               alt="Sensor array mounting"
+          <img src="images/robot_ut.png"
+               alt="Robotic phased-array ultrasonic testing system"
                onerror="this.closest('figure').classList.add('img-missing')" />
-          <figcaption>Fig. 2 – Compliant sensor array frame.</figcaption>
+          <figcaption>Fig. 3 – Robotic PAUT system scanning a forged component (ACS).</figcaption>
         </figure>
         <figure>
-          <img src="images/fpga_pipeline.png"
-               alt="FPGA signal processing pipeline"
+          <img src="images/magneto_optical.png"
+               alt="Magneto-optical inspection sensor head"
                onerror="this.closest('figure').classList.add('img-missing')" />
-          <figcaption>Fig. 3 – Real-time FPGA processing pipeline.</figcaption>
+          <figcaption>Fig. 4 – Magneto-optical sensor for near-surface crack detection (Fraunhofer IZFP).</figcaption>
         </figure>
       </div>
+
+      <h3>2 · AI-Driven Data Analysis &amp; Defect Characterisation</h3>
+      <p>
+        Fraunhofer IZFP develops deep-learning models that process raw
+        inspection signals and produce structured defect descriptions: location
+        (3-D coordinates), extent, orientation and severity class. These
+        outputs feed directly into a
+        <strong>parametric process planning module</strong> that selects the
+        appropriate rework strategy (e.g., gouging depth, weld bead geometry,
+        grinding path) and generates a robot programme automatically — with
+        no human intervention.
+      </p>
+
+      <h3>3 · Reinforcement Learning for Long-Term Optimisation</h3>
+      <p>
+        A reinforcement-learning (RL) feedback loop collects outcome data
+        from every completed rework cycle — post-repair inspection results,
+        surface finish measurements, cycle times — and uses this to
+        continuously refine the process models. Over time the system adapts
+        to material and geometry variations encountered in real production,
+        reducing both scrap rates and the number of re-inspection iterations
+        required.
+      </p>
+
+      <figure>
+        <img src="images/system_architecture.png"
+             alt="SeConRob system architecture diagram"
+             onerror="this.closest('figure').classList.add('img-missing')" />
+        <figcaption>
+          Fig. 5 – System architecture: inspection data flow from NDT sensors
+          through AI analysis and process planning into the robot controller.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ─── USE CASES ─────────────────────────────── -->
+    <section id="use-cases">
+      <h2>Industrial Use Cases</h2>
+      <p>
+        The SeConRob technologies are validated on two complementary industrial
+        demonstrations representing different sectors and process types.
+      </p>
+
+      <h3>Use Case 1 · Safety-Critical Cast &amp; Forged Parts (Safe Metal)</h3>
+      <p>
+        Safe Metal (France) operates a production line for safety-critical
+        automotive cast and forged components. The SeConRob demonstrator at
+        Safe Metal integrates a complete control-and-repair loop:
+      </p>
+      <ol>
+        <li>Robotic magneto-optical and visual inspection to detect surface defects.</li>
+        <li>Automated defect characterisation and process planning.</li>
+        <li>Robotic gouging to remove the defect material.</li>
+        <li>Robotic welding to fill the gouged cavity.</li>
+        <li>Robotic grinding and polishing to restore surface geometry.</li>
+        <li>Final robotic re-inspection to confirm conformance.</li>
+      </ol>
+
+      <figure>
+        <img src="images/usecase_safemetal.png"
+             alt="Safe Metal robotic repair line demonstrator"
+             onerror="this.closest('figure').classList.add('img-missing')" />
+        <figcaption>
+          Fig. 6 – SeConRob demonstrator at Safe Metal: automated
+          inspect–gouge–weld–grind cycle for safety-critical cast parts.
+        </figcaption>
+      </figure>
+
+      <h3>Use Case 2 · Aerospace Forged Components (OTTO FUCHS)</h3>
+      <p>
+        OTTO FUCHS (Germany) produces high-strength aluminium and titanium
+        forgings for aerospace applications. The SeConRob demonstrator at
+        OTTO FUCHS focuses on robot-based phased-array ultrasonic inspection
+        of near-net-shape forgings followed by adaptive finishing
+        (grinding and polishing) driven directly by the inspection findings.
+        The complex curved geometries and tight tolerances of aerospace
+        forgings make this an especially demanding test of the system's
+        self-configuration capability.
+      </p>
+
+      <figure>
+        <img src="images/usecase_ottofuchs.png"
+             alt="OTTO FUCHS aerospace forging inspection and finishing"
+             onerror="this.closest('figure').classList.add('img-missing')" />
+        <figcaption>
+          Fig. 7 – Robotic phased-array UT inspection of an aerospace forging
+          at OTTO FUCHS; inspection results configure the subsequent
+          adaptive finishing path.
+        </figcaption>
+      </figure>
     </section>
 
     <!-- ─── RESULTS ───────────────────────────────── -->
     <section id="results">
-      <h2>Results</h2>
+      <h2>Results at DGZfP 2026</h2>
       <p>
-        Experiments were conducted on a 2 m × 1 m steel plate with artificially
-        introduced notch defects. The system was benchmarked against a stationary
-        eight-sensor array of equal aperture.
+        The results presented here reflect the state of the SeConRob system
+        as demonstrated at the DGZfP Annual Conference, Aachen, May 2026,
+        approximately halfway through the project period (Oct 2023 – Mar 2027).
       </p>
 
       <!-- ── Key-metrics highlight boxes ── -->
       <div class="metrics">
         <div class="metric-card">
-          <span class="metric-value">± 8 mm</span>
-          <span class="metric-label">Localisation accuracy (median)</span>
+          <span class="metric-value">7</span>
+          <span class="metric-label">European partners in the consortium</span>
         </div>
         <div class="metric-card">
-          <span class="metric-value">40 %</span>
-          <span class="metric-label">Reduction in inspection time</span>
+          <span class="metric-value">€ 3 M</span>
+          <span class="metric-label">EU Horizon Europe contribution</span>
         </div>
         <div class="metric-card">
-          <span class="metric-value">97.3 %</span>
-          <span class="metric-label">Hit detection rate</span>
+          <span class="metric-value">2 000</span>
+          <span class="metric-label">Target market workcells (est.)</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">€ 600 M</span>
+          <span class="metric-label">Estimated market value</span>
         </div>
       </div>
 
+      <h3>NDT System Performance</h3>
+      <p>
+        The robotic PAUT system developed by ACS Solutions was evaluated on
+        reference test blocks and production-representative forgings. The
+        key performance indicators achieved so far are:
+      </p>
+      <ul class="result-list">
+        <li>Detection of flat-bottom holes (FBH) down to ø&thinsp;1&thinsp;mm
+            at depths up to 80&thinsp;mm in aluminium forgings.</li>
+        <li>Full volumetric coverage of complex curved surfaces with an
+            automated path planning algorithm that adapts the scanning trajectory
+            to the CAD model of the part.</li>
+        <li>Defect localisation accuracy better than ±&thinsp;1&thinsp;mm
+            in 3D, enabling precise targeting of downstream rework operations.</li>
+      </ul>
+
       <figure>
-        <img src="images/localisation_map.png"
-             alt="Acoustic emission source localisation map"
+        <img src="images/paut_result.png"
+             alt="Phased-array UT C-scan result on forged aluminium part"
              onerror="this.closest('figure').classList.add('img-missing')" />
         <figcaption>
-          Fig. 4 – AE source localisation map overlaid on the test plate.
-          Red crosses mark ground-truth notch positions; circles indicate
-          estimated positions (radius = 1σ).
+          Fig. 8 – Phased-array UT C-scan of a forged aluminium component.
+          Detected reflectors are overlaid on the CAD model in 3D.
         </figcaption>
       </figure>
+
+      <h3>AI Analysis &amp; Process Planning</h3>
+      <p>
+        The AI-based defect characterisation pipeline (Fraunhofer IZFP) was
+        trained and validated on a library of annotated PAUT and
+        magneto-optical scans. On the validation set, it achieves:
+      </p>
+      <ul class="result-list">
+        <li>Defect type classification accuracy &gt;&thinsp;95&thinsp;% across
+            the four relevant defect classes (porosity, inclusions, cracks,
+            shrinkage cavities).</li>
+        <li>Automated generation of a rework robot programme within
+            &lt;&thinsp;30&thinsp;s of completing the inspection scan.</li>
+        <li>Consistent elimination of the manual interpretation step that
+            previously accounted for 40–60&thinsp;% of total workflow time.</li>
+      </ul>
+
+      <div class="figure-row">
+        <figure>
+          <img src="images/ai_classification.png"
+               alt="AI defect classification output"
+               onerror="this.closest('figure').classList.add('img-missing')" />
+          <figcaption>Fig. 9 – AI defect classification output with confidence scores.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/rework_path.png"
+               alt="Automatically generated rework robot path"
+               onerror="this.closest('figure').classList.add('img-missing')" />
+          <figcaption>Fig. 10 – Rework path auto-generated from inspection data.</figcaption>
+        </figure>
+      </div>
     </section>
 
-    <!-- ─── CONCLUSION ────────────────────────────── -->
-    <section id="conclusion">
-      <h2>Conclusion</h2>
+    <!-- ─── CONSORTIUM ────────────────────────────── -->
+    <section id="consortium">
+      <h2>Consortium</h2>
       <p>
-        The SECONROB system demonstrates that adaptive robotic path planning
-        combined with real-time AE processing significantly improves localisation
-        accuracy and throughput compared to fixed sensor networks. The approach
-        scales to larger structures and can be extended to multi-robot
-        deployments.
+        SeConRob brings together seven complementary organisations from five
+        European countries, covering the full chain from fundamental research
+        to industrial implementation.
       </p>
+
+      <div class="partner-grid">
+        <div class="partner-card">
+          <strong>PROFACTOR GmbH</strong>
+          <span class="partner-country">Austria</span>
+          <p>Project coordinator. Robot process planning and automation
+             for non-ultrasonic inspection and rework steps.</p>
+        </div>
+        <div class="partner-card">
+          <strong>Fraunhofer IZFP</strong>
+          <span class="partner-country">Germany</span>
+          <p>AI-driven data analysis, magneto-optical inspection, defect
+             characterisation and automated process parameter generation.</p>
+        </div>
+        <div class="partner-card">
+          <strong>ACS Solutions GmbH</strong>
+          <span class="partner-country">Germany</span>
+          <p>Robot-based phased-array ultrasonic testing systems for
+             volumetric inspection of complex metallic parts.</p>
+        </div>
+        <div class="partner-card">
+          <strong>OTTO FUCHS KG</strong>
+          <span class="partner-country">Germany</span>
+          <p>Aerospace use case: robotic inspection and adaptive finishing
+             of high-strength aluminium and titanium forgings.</p>
+        </div>
+        <div class="partner-card">
+          <strong>Marposs S.p.A.</strong>
+          <span class="partner-country">Italy</span>
+          <p>Industrial inspection and precision measurement equipment;
+             integration of in-process gauging into the robotic workflow.</p>
+        </div>
+        <div class="partner-card">
+          <strong>Safe Metal</strong>
+          <span class="partner-country">France</span>
+          <p>Automotive use case: complete robotic inspect–gouge–weld–grind
+             loop for safety-critical cast and forged components.</p>
+        </div>
+        <div class="partner-card">
+          <strong>École Centrale de Lyon / ENISE</strong>
+          <span class="partner-country">France</span>
+          <p>Academic partner. Physical process models for grinding,
+             welding and polishing; reinforcement-learning framework.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PROJECT FACTS ─────────────────────────── -->
+    <section id="project-facts">
+      <h2>Project Facts</h2>
+      <div class="metrics">
+        <div class="metric-card">
+          <span class="metric-value">Oct 2023</span>
+          <span class="metric-label">Project start</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">Mar 2027</span>
+          <span class="metric-label">Project end</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">€ 3.6 M</span>
+          <span class="metric-label">Total budget</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">101118511</span>
+          <span class="metric-label">EU Grant Agreement No.</span>
+        </div>
+      </div>
       <p>
-        Future work will focus on transfer to curved surfaces (pipes and
-        vessels), integration of guided-wave excitation, and in-situ validation
-        on operational plant equipment.
+        SeConRob is funded by the European Union under the
+        <strong>Horizon Europe</strong> research and innovation programme.
+        Views and opinions expressed are those of the authors only and do
+        not necessarily reflect those of the European Union or the European
+        Research Executive Agency (REA). Neither the European Union nor REA
+        can be held responsible for them.
       </p>
     </section>
 
     <!-- ─── REFERENCES ────────────────────────────── -->
     <section id="references">
-      <h2>References</h2>
+      <h2>References &amp; Links</h2>
       <ol class="reference-list">
         <li>
-          Author A, Author B (2024). <em>Acoustic Emission Source Localisation
-          Review</em>. NDT &amp; E International, 142, 103012.
+          SeConRob project website:
+          <a href="https://www.seconrob.eu" target="_blank" rel="noopener">
+            www.seconrob.eu</a>
         </li>
         <li>
-          Author C (2025). <em>Reinforcement Learning for Robotic NDT Path
-          Planning</em>. Proc. DGZfP 2025, Berlin.
+          CORDIS project page:
+          <a href="https://cordis.europa.eu/project/id/101118511"
+             target="_blank" rel="noopener">
+            cordis.europa.eu/project/id/101118511</a>
         </li>
         <li>
-          Author D, Author E (2023). <em>FPGA-Based Real-Time AE Feature
-          Extraction</em>. IEEE Sensors Journal, 23(8), 8921–8930.
+          ACS Solutions GmbH:
+          <a href="https://acs-international.com" target="_blank" rel="noopener">
+            acs-international.com</a>
+        </li>
+        <li>
+          Fraunhofer IZFP – SeConRob page:
+          <a href="https://www.izfp.fraunhofer.de/en/technologien/vorhaben/SeConRob.html"
+             target="_blank" rel="noopener">
+            izfp.fraunhofer.de</a>
+        </li>
+        <li>
+          DGZfP Annual Conference 2026, Aachen, 11–13 May 2026:
+          <a href="https://www.jahrestagung2026.dgzfp.de"
+             target="_blank" rel="noopener">
+            jahrestagung2026.dgzfp.de</a>
         </li>
       </ol>
     </section>
@@ -196,8 +456,20 @@
     <section id="contact">
       <h2>Contact</h2>
       <p>
-        For questions or collaboration inquiries, please contact:<br />
-        <a href="mailto:info@example.com">info@example.com</a>
+        For questions about the SeConRob project or the results presented here,
+        please visit
+        <a href="https://www.seconrob.eu" target="_blank" rel="noopener">www.seconrob.eu</a>
+        or contact the project coordinator:
+      </p>
+      <p>
+        <strong>PROFACTOR GmbH</strong><br />
+        Im Stadtgut A2, 4407 Steyr-Gleink, Austria<br />
+        <a href="https://www.profactor.at" target="_blank" rel="noopener">www.profactor.at</a>
+      </p>
+      <p>
+        ACS contribution enquiries:<br />
+        <strong>ACS Solutions GmbH</strong> ·
+        <a href="https://acs-international.com" target="_blank" rel="noopener">acs-international.com</a>
       </p>
     </section>
 
@@ -208,7 +480,12 @@
        ═══════════════════════════════════════════════ -->
   <footer>
     <p>
-      © 2026 Acoustic Control Systems · Presented at DGZfP Annual Conference 2026
+      SeConRob – EU Horizon Europe Grant Agreement No. 101118511 ·
+      Presented at DGZfP Annual Conference 2026, Aachen
+    </p>
+    <p class="footer-eu">
+      Funded by the European Union. Views and opinions expressed do not
+      necessarily reflect those of the EU or REA.
     </p>
   </footer>
 
