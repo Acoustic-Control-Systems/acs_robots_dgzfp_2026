@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robotergestützte Ultraschallprüfung von geometrisch komplexen Schmiedebauteilen der Luftfahrtindustrie · DGZfP 2026</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       HEADER
+       ═══════════════════════════════════════════════ -->
+  <header>
+    <div class="header-inner">
+      <p class="conference-label">DGZfP Annual Conference · Aachen · 11–13 May 2026</p>
+      <h1 class="paper-title">
+        Robotergestützte Ultraschallprüfung von geometrisch<br />
+        komplexen Schmiedebauteilen der Luftfahrtindustrie
+      </h1>
+      <p class="authors">
+        Alexey Bevetskiy, Andrey Bulavinov, Roman Pinchuk<br />
+        <em>ACS-Solutions GmbH, Saarbrücken</em><br /><br />
+        Michael Okulla, Jens Kiehn<br />
+        <em>Otto Fuchs KG</em>
+      </p>
+      <p class="affiliations">
+        SeConRob – EU Horizon Europe · Grant Agreement No. 101118511
+      </p>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════
+       NAVIGATION (auto-generated from sections below)
+       ═══════════════════════════════════════════════ -->
+  <nav id="toc">
+    <ul id="toc-list"></ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════
+       MAIN CONTENT
+       Add or remove <section> blocks as needed.
+       Each section must have a unique id and a <h2>.
+       ═══════════════════════════════════════════════ -->
+  <main>
+
+    <!-- ─── INTRODUCTION ─────────────────────────── -->
+    <section id="introduction">
+      <h2>Introduction</h2>
+      <p>
+        Within the <strong>SeConRob</strong> project (<em>Self-Configuring
+        Multi-Step Robotic Workflows</em>), ACS Solutions GmbH has concentrated
+        its recent work on the <strong>robotic ultrasonic inspection of
+        geometrically complex aerospace forgings</strong> supplied by project
+        partner <strong>OTTO FUCHS KG</strong>. These parts represent genuine
+        aerospace-grade forgings with complex geometry, non-parallel surfaces,
+        and compound radii — exactly the class of component where automated
+        volumetric inspection has historically been limited by the difficulty
+        of adapting scan trajectories to free-form surfaces.
+      </p>
+      <p>
+        The following sections walk through the key steps we have completed to
+        acquire, process, and visualise high-quality ultrasonic data from this
+        part: defining the measurement area, performing a calibration scan,
+        building the meander trajectory, running the actual measurement, and
+        reconstructing the full 3-D volume.
+      </p>
+
+      <figure>
+        <img src="images/cruciform_overview.png"
+             alt="Complex aerospace forged part from OTTO FUCHS"
+             onerror="this.closest('figure').classList.add('img-missing')" />
+        <figcaption>
+          Fig. 1 – Verification test piece from OTTO FUCHS,
+          used for sensitivity calibration and as the primary inspection
+          specimen in the SeConRob OTTO FUCHS use case.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ─── MEASUREMENT AREA ──────────────────────── -->
+    <section id="measurement-area">
+      <h2>Building the Measurement Area</h2>
+      <p>
+        The test piece provided for inspection is the
+        <strong>verification test piece</strong> — a block that contains
+        several known artificial reflectors (flat-bottom holes of defined
+        size and depth). This reference specimen serves a dual purpose: it
+        enables <strong>sensitivity calibration</strong> of the inspection
+        system relative to the actual surface geometry of the part (including
+        non-parallel faces, varying radii and freeform regions), and it is
+        machined from a representative base taken from a real original forged
+        aerospace component.
+      </p>
+      <p>
+        Using the verification test piece, we calibrate the system response
+        at each point of the scanning area, compensating for signal amplitude
+        deviations caused by surface curvature and angle variations. Only
+        after this calibration step is the sensitivity across the entire volume
+        reliably uniform — a prerequisite for trustworthy defect detection and
+        sizing in a production environment.
+      </p>
+
+      <figure>
+        <img src="images/test_piece.png"
+             alt="Verification test piece with artificial reflectors"
+             onerror="this.closest('figure').classList.add('img-missing')" />
+        <figcaption>
+          Fig. 2 – Verification test piece with defined artificial
+          reflectors, machined from a representative base of the
+          original aerospace forging.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ─── MEANDER CALIBRATION ───────────────────── -->
+    <section id="meander-calibration">
+      <h2>Meander Calibration</h2>
+
+      <h3>Selecting the Scan Area in CAD</h3>
+      <p>
+        Before running any scan, an operator selects the
+        <strong>area of interest</strong> directly in our CAD-integrated
+        software environment. Two border curves of the future scan region are
+        picked on the 3-D CAD model of the part. The resulting boundary points
+        are preliminary at this stage and will be refined automatically during
+        the subsequent calibration run. This CAD-driven approach ensures that
+        the scan coverage always matches the actual part geometry, even for
+        components with complex free-form surfaces.
+      </p>
+
+      <figure>
+        <img src="images/cad_area_selection.png"
+             alt="Area of interest selection in CAD"
+             onerror="this.closest('figure').classList.add('img-missing')" />
+        <figcaption>
+          Fig. 3 – Scan area of interest defined by selecting two border
+          curves on the 3-D CAD model of the aerospace forged part.
+        </figcaption>
+      </figure>
+
+      <h3>Calibration Run — Finding the Optimal Incidence Angle</h3>
+      <p>
+        With the area defined, we initiate a <strong>calibration scan</strong>
+        in <strong>immersion technique</strong>. The purpose of this run is to
+        find, at each key point across the surface, the robot orientation that
+        provides the <strong>optimal incidence angle</strong> for the ultrasonic
+        beam — i.e., the orientation at which the amplitude of the echo from the
+        part surface is at its maximum.
+      </p>
+      <p>
+        During the calibration scan the robot continuously and slightly adjusts
+        its wrist orientation while traversing the scan area. Our measurement
+        software analyses the ultrasonic signal in real time, searches for the
+        orientation that produces the highest surface-echo amplitude, and saves
+        that robot pose as a <strong>key point</strong>. This process is fully
+        automated: no manual angular adjustment is required.
+      </p>
+
+      <div class="figure-row">
+        <figure>
+          <img src="images/calibration_scan.png"
+               alt="Robot performing calibration scan in immersion"
+               onerror="this.closest('figure').classList.add('img-missing')" />
+          <figcaption>Fig. 4 – Calibration scan in immersion technique; robot searches for maximum surface amplitude.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/key_points.png"
+               alt="Key points collected during calibration"
+               onerror="this.closest('figure').classList.add('img-missing')" />
+          <figcaption>Fig. 5 – Key points (optimal robot orientations) collected across the scan surface.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Building the Scanning Trajectory from Key Points</h3>
+      <p>
+        Once all key points are collected, our software module
+        <strong>constructs the full scanning trajectory</strong> — a spatial
+        meander pattern whose resolution (point spacing) can be freely
+        configured by the operator. At each meander node the robot adopts the
+        interpolated optimal orientation derived from the neighbouring key
+        points, maintaining near-normal beam incidence throughout the scan.
+      </p>
+      <p>
+        The generated trajectory is then automatically validated for
+        <strong>reachability and collision avoidance</strong> using our
+        software in combination with the <strong>RoboDK API</strong>. This
+        step catches any kinematic limitations or potential obstructions before
+        a single measurement is taken. Prior to the real measurement, the
+        operator can optionally perform a <strong>dry run</strong> — the robot
+        executes the full trajectory without firing ultrasonics — to visually
+        confirm the motion path.
+      </p>
+
+      <figure>
+        <img src="images/meander_trajectory.png"
+             alt="Meander scanning trajectory built from calibration key points"
+             onerror="this.closest('figure').classList.add('img-missing')" />
+        <figcaption>
+          Fig. 6 – Meander scanning trajectory automatically constructed
+          from calibration key points and validated for reachability
+          and collisions via RoboDK.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ─── MEASUREMENT ───────────────────────────── -->
+    <section id="measurement">
+      <h2>Measurement</h2>
+      <p>
+        With the validated trajectory loaded, the operator starts the
+        measurement directly from within our acquisition software. All
+        ultrasonic acquisition parameters — gain, pulse repetition frequency,
+        digitisation rate, gate settings — are configurable from a single
+        interface that also controls robot motion.
+      </p>
+      <p>
+        Because every potential issue has already been resolved during the
+        calibration and dry-run phases, the <strong>acquisition runs at high
+        velocity</strong>, keeping throughput competitive with conventional
+        fixed-frame immersion systems. Ultrasonic data and the corresponding
+        <strong>true robot TCP (tool-centre-point) positions</strong> are saved
+        in real time to a synchronised dataset. Recording the actual robot
+        position rather than the nominal trajectory position is critical: it
+        allows the reconstruction algorithm to account for any small positional
+        deviations and produce a geometrically accurate 3-D volume.
+      </p>
+      <p>
+        The operator monitors acquisition quality by observing the live 1-D
+        A-scan signal on screen. If a parameter adjustment — such as a change
+        in amplification or scanning speed — is required after an initial pass,
+        it can be made immediately in the software and a new scan started
+        without any reconfiguration overhead. At the end of each measurement
+        run the robot automatically returns to its defined home position.
+      </p>
+
+      <figure>
+        <img src="images/measurement_run.png"
+             alt="Robot performing high-velocity ultrasonic scan"
+             onerror="this.closest('figure').classList.add('img-missing')" />
+        <figcaption>
+          Fig. 7 – High-velocity ultrasonic scan in progress; live A-scan
+          signal and robot TCP position are recorded synchronously.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ─── PROCESSING & VISUALISATION ──────────────── -->
+    <section id="processing-visualisation">
+      <h2>Processing &amp; Visualisation</h2>
+      <p>
+        Post-acquisition, the data are processed by a dedicated
+        <strong>reconstruction software written in C#</strong>, highly
+        optimised for performance. The software loads each dataset, reads the
+        paired ultrasonic signals and true robot positions, and performs a full
+        volumetric reconstruction. A key algorithmic contribution is an
+        <strong>automatic amplitude-compensation algorithm</strong> that corrects
+        for signal-amplitude deviations arising from surface curvature
+        variations: reflectors at the same depth are displayed with a consistent
+        amplitude regardless of local surface angle, significantly improving
+        defect sizing accuracy.
+      </p>
+      <p>
+        A dedicated <strong>visualisation and analysis tool</strong> then allows
+        the operator — and downstream process-planning modules — to evaluate
+        the reconstruction. C-scans, B-scans, and interactive 3-D views can
+        be generated and superimposed on the CAD model, making spatial
+        relationships between detected reflectors and part geometry immediately
+        visible.
+      </p>
+
+      <div class="metrics">
+        <div class="metric-card">
+          <span class="metric-value">100&thinsp;%</span>
+          <span class="metric-label">Artificial reflectors clearly resolved in all scans</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">High</span>
+          <span class="metric-label">Repeatability across all measurement runs</span>
+        </div>
+      </div>
+
+      <p>
+        A series of datasets has been acquired on the verification test piece.
+        All scans show <strong>good resolution</strong> of the artificial
+        defects and <strong>stable repeatability</strong> across repeated
+        measurements. The detected reflector positions match the locations
+        specified in the technical drawings with high accuracy, validating
+        both the calibration procedure and the reconstruction algorithm.
+      </p>
+
+      <div class="figure-row">
+        <figure>
+          <img src="images/cscan_result.png"
+               alt="C-scan of complex aerospace forged part showing artificial reflectors"
+               onerror="this.closest('figure').classList.add('img-missing')" />
+          <figcaption>Fig. 8 – C-scan of the forged part; artificial reflectors are clearly resolved.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/volume_reconstruction.png"
+               alt="3-D volume reconstruction overlaid on CAD model"
+               onerror="this.closest('figure').classList.add('img-missing')" />
+          <figcaption>Fig. 9 – 3-D volume reconstruction overlaid on the CAD model; reflector positions match technical drawing data.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ─── CONTACT ───────────────────────────────── -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        For questions about the robotic UT scanning work presented here or
+        ACS solutions for NDT automation, please visit:
+      </p>
+      <p>
+        <strong>ACS Solutions GmbH</strong><br />
+        <a href="https://acs-international.com" target="_blank" rel="noopener">acs-international.com</a>
+      </p>
+      <p>
+        For questions about the SeConRob project:
+        <a href="https://www.seconrob.eu" target="_blank" rel="noopener">www.seconrob.eu</a>
+      </p>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════ -->
+  <footer>
+    <p>
+      ACS Solutions GmbH · SeConRob – EU Horizon Europe Grant Agreement No. 101118511 ·
+      DGZfP Annual Conference 2026, Aachen
+    </p>
+    <p class="footer-eu">
+      SeConRob is funded by the European Union. Views and opinions expressed do not
+      necessarily reflect those of the EU or REA.
+    </p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
