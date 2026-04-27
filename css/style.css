@@ -79,6 +79,12 @@ header {
   opacity: 0.75;
 }
 
+.eu-flag {
+  margin: 10px;
+  width: 120px;
+  vertical-align: middle;
+}
+
 /* ── Navigation / Table of Contents ─────────────────────────────────────── */
 nav#toc {
   background: var(--color-primary);
